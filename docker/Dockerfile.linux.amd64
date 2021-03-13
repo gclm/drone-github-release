@@ -1,9 +1,15 @@
-FROM plugins/base:multiarch@sha256:2873bcb0995b69534effa162eb290149dace2e383f3fb67ca10cc68956ac26fd
+FROM amd64/alpine:3.13@sha256:4661fb57f7890b9145907a1fe2555091d333ff3d28db86c3bb906f6a2be93c87
 
-LABEL maintainer="Drone.IO Community <drone-dev@googlegroups.com>" \
+LABEL maintainer="gclm <gclmit@163.com>" \
   org.label-schema.name="Drone GitHub Release" \
-  org.label-schema.vendor="Drone.IO Community" \
+  org.label-schema.vendor="Gclmit" \
   org.label-schema.schema-version="1.0"
+LABEL org.opencontainers.image.authors="gclmit@163.com"
+LABEL org.opencontainers.image.title="drone-github-release"
+LABEL org.opencontainers.image.url="https://github.com/gclm/drone-github-release"
+LABEL org.opencontainers.image.source="https://github.com/gclm/drone-github-release"
+LABEL org.opencontainers.image.documentation="https://github.com/gclm/drone-github-release"
+
 
 ADD release/linux/amd64/drone-github-release /bin/
 ENTRYPOINT [ "/bin/drone-github-release" ]
