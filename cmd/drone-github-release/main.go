@@ -8,9 +8,9 @@
 package main
 
 import (
-	"github.com/drone-plugins/drone-github-release/plugin"
 	"github.com/drone-plugins/drone-plugin-lib/errors"
 	"github.com/drone-plugins/drone-plugin-lib/urfave"
+	"github.com/gclm/drone-github-release/plugin"
 	"github.com/joho/godotenv"
 	"github.com/urfave/cli/v2"
 	"os"

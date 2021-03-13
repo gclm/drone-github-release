@@ -6,7 +6,7 @@
 package main
 
 import (
-	"github.com/drone-plugins/drone-github-release/plugin"
+	"github.com/gclm/drone-github-release/plugin"
 	"github.com/urfave/cli/v2"
 )
 

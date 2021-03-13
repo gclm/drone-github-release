@@ -1,4 +1,4 @@
-module github.com/drone-plugins/drone-github-release
+module github.com/gclm/drone-github-release
 
 go 1.15
 
