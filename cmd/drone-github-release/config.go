@@ -14,10 +14,16 @@ import (
 func settingsFlags(settings *plugin.Settings) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
-			Name:        "api-key",
-			Usage:       "api key to access github api",
+			Name:        "access-token",
+			Usage:       "github access token",
 			EnvVars:     []string{"PLUGIN_API_KEY", "GITHUB_RELEASE_API_KEY", "GITHUB_TOKEN"},
-			Destination: &settings.APIKey,
+			Destination: &settings.AccessToken,
+		},
+		&cli.StringFlag{
+			Name:        "repository",
+			Usage:       "github repository, eq gclm/drone-github-release",
+			EnvVars:     []string{"PLUGIN_REPOSITORY", "GITHUB_RELEASE_REPOSITORY"},
+			Destination: &settings.Repository,
 		},
 		&cli.StringSliceFlag{
 			Name:        "files",

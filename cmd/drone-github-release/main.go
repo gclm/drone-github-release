@@ -8,13 +8,12 @@
 package main
 
 import (
-	"os"
-
+	"github.com/drone-plugins/drone-github-release/plugin"
 	"github.com/drone-plugins/drone-plugin-lib/errors"
 	"github.com/drone-plugins/drone-plugin-lib/urfave"
 	"github.com/joho/godotenv"
 	"github.com/urfave/cli/v2"
-	"github.com/drone-plugins/drone-github-release/plugin"
+	"os"
 )
 
 var version = "unknown"

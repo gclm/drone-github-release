@@ -19,7 +19,8 @@ import (
 
 // Settings for the plugin.
 type Settings struct {
-	APIKey          string
+	AccessToken     string
+	Repository      string
 	Files           cli.StringSlice
 	FileExists      string
 	Checksum        cli.StringSlice
@@ -46,7 +47,7 @@ func (p *Plugin) Validate() error {
 		return fmt.Errorf("github release plugin is only available for tags")
 	}
 
-	if p.settings.APIKey == "" {
+	if p.settings.AccessToken == "" {
 		return fmt.Errorf("no api key provided")
 	}
 
@@ -113,7 +114,7 @@ func (p *Plugin) Validate() error {
 
 // Execute provides the implementation of the plugin.
 func (p *Plugin) Execute() error {
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: p.settings.APIKey})
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: p.settings.AccessToken})
 	tc := oauth2.NewClient(
 		context.WithValue(context.Background(), oauth2.HTTPClient, p.network.Client),
 		ts,
@@ -124,11 +125,20 @@ func (p *Plugin) Execute() error {
 	client.BaseURL = p.settings.baseURL
 	client.UploadURL = p.settings.uploadURL
 
+	// 解决在其他服务商上使用drone
+	Owner := p.pipeline.Repo.Owner
+	Name := p.pipeline.Repo.Name
+	repository := strings.Split(p.settings.Repository, "/")
+	if p.settings.Repository != "" {
+		Owner = repository[0]
+		Name = repository[1]
+	}
+
 	rc := releaseClient{
 		Client:     client,
 		Context:    p.network.Context,
-		Owner:      p.pipeline.Repo.Owner,
-		Repo:       p.pipeline.Repo.Name,
+		Owner:      Owner,
+		Repo:       Name,
 		Tag:        strings.TrimPrefix(p.pipeline.Commit.Ref, "refs/tags/"),
 		Draft:      p.settings.Draft,
 		Prerelease: p.settings.Prerelease,
